@@ -2,13 +2,14 @@
 #
 # Author: Max Jiang
 # Date 05/31/2016
+#
 
 FROM resin/rpi-raspbian:jessie
 MAINTAINER Max Jiang <maxjiang@hotmail.com>
 
 # Set the variables
 ENV DEBIAN_FRONTEND noninteractive
-ENV PHTHON_VERSION 3.5.1
+ENV PYTHON_VERSION 3.5.2
 
 WORKDIR /root
 
@@ -26,20 +27,20 @@ RUN apt-get update && apt-get upgrade && apt-get install -y \
 
 # Download and compile python
 RUN apt-get install -y ca-certificates
-ADD "https://www.python.org/ftp/python/${PHTHON_VERSION}/Python-${PHTHON_VERSION}.tgz" /root/Python-${PHTHON_VERSION}.tgz
-RUN tar zxvf "Python-${PHTHON_VERSION}.tgz" \
-        && cd Python-${PHTHON_VERSION} \
+ADD "https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz" /root/Python-${PYTHON_VERSION}.tgz
+RUN tar zxvf "Python-${PYTHON_VERSION}.tgz" \
+        && cd Python-${PYTHON_VERSION} \
         && ./configure \
         && make \
         && make install \
         && cd .. \
-        && rm -rf "./Python-${PHTHON_VERSION}" \
-        && rm "./Python-${PHTHON_VERSION}.tgz"
+        && rm -rf "./Python-${PYTHON_VERSION}" \
+        && rm "./Python-${PYTHON_VERSION}.tgz"
 
 # Update pip and install jupyter
 RUN apt-get install -y libncurses5-dev
 RUN pip3 install --upgrade pip
-RUN pip3 install -y readline jupyter
+RUN pip3 install jupyter
 
 # Configure jupyter
 RUN jupyter notebook --generate-config
