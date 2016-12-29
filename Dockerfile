@@ -9,7 +9,7 @@ MAINTAINER Max Jiang <maxjiang@hotmail.com>
 
 # Set the variables
 ENV DEBIAN_FRONTEND noninteractive
-ENV PYTHON_VERSION 3.5.2
+ENV PYTHON_VERSION 3.6.0
 
 WORKDIR /root
 
@@ -23,6 +23,8 @@ RUN apt-get update && apt-get upgrade && apt-get install -y \
         libsqlite3-dev \
         tk-dev \
         libssl-dev \
+        libreadline-dev \
+        libbz2-dev \
         openssl
 
 # Download and compile python
